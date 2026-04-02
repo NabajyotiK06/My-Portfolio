@@ -1,0 +1,55 @@
+.marqueeContainer {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.borderTop,
+.borderBottom {
+  display: none; /* Now handled by SectionDivider */
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+.techItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 40px;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.techItem:hover {
+  color: var(--text-primary);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.name {
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
