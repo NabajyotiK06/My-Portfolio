@@ -33,8 +33,41 @@
   color: var(--text-secondary);
   font-size: 16px;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 32px;
   line-height: 1.5;
+}
+
+.viewToggle {
+  display: inline-flex;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-pill);
+  padding: 4px;
+  margin-bottom: 32px;
+}
+
+.toggleBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-pill);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.toggleBtn.active {
+  background: #e4e4e7;
+  color: #000;
+}
+
+.toggleBtn:hover:not(.active) {
+  color: var(--text-primary);
 }
 
 .card {
@@ -215,6 +248,40 @@
   }
   
   .techStack {
+    margin-left: 24px;
+  }
+}
+
+.certificateLinkContainer {
+  margin-top: 32px;
+  margin-left: 48px;
+  display: flex;
+}
+
+.certBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.certBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .certificateLinkContainer {
     margin-left: 24px;
   }
 }

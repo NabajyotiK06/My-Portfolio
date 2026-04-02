@@ -160,6 +160,12 @@
   gap: 10px;
 }
 
+.socialIconWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
 .socialIcon {
   display: flex;
   align-items: center;
@@ -179,20 +185,65 @@
   transform: translateY(-2px);
 }
 
+.tooltip {
+  position: absolute;
+  top: 0;
+  background: #ffffff;
+  color: #000000;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tooltipArrow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+}
+
 .profileSection {
   flex-shrink: 0;
   margin-top: 4px;
 }
 
-.profilePlaceholder {
+.profileImageContainer {
   width: 170px;
   height: 170px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #1c1c1e, #0a0a0c);
   border: 1px solid var(--border-highlight);
   box-shadow:
     inset 0 0 30px rgba(0, 0, 0, 0.7),
     0 8px 24px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  background: var(--accent-color);
+  transition: box-shadow 0.4s ease;
+}
+
+.profileImageContainer:hover {
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.8),
+    0 12px 32px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.profileImageContainer:hover .profileImage {
+  transform: scale(1.12) rotate(-3deg);
 }
 
 @media (max-width: 768px) {
@@ -206,7 +257,7 @@
     text-align: center;
   }
 
-  .profilePlaceholder {
+  .profileImageContainer {
     width: 120px;
     height: 120px;
   }

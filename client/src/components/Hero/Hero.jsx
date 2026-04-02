@@ -1,13 +1,52 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Mail, FileText, Globe, Activity, Code, PenTool } from 'lucide-react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { Mail, FileText } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa6';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import styles from './Hero.module.css';
+import profilePic from '../../assets/profile_hamster.jpg';
 
 const titles = [
   "I am a Full Stack Developer",
   "I build real-time web applications",
   "I engineer scalable web systems"
 ];
+
+const SocialIconWithTooltip = ({ href, icon: Icon, label }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div 
+      className={styles.socialIconWrapper} 
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onClick={() => setShowTooltip(true)}
+    >
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, x: "-50%", scale: 0.6 }}
+            animate={{ opacity: 1, y: -45, x: "-50%", scale: 1 }}
+            exit={{ opacity: 0, y: 10, x: "-50%", scale: 0.6 }}
+            style={{ left: "50%" }}
+            transition={{ 
+              type: "spring",
+              stiffness: 500,
+              damping: 20,
+              mass: 0.8
+            }}
+            className={styles.tooltip}
+          >
+            {label}
+            <div className={styles.tooltipArrow} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <a href={href} target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+        <Icon size={18} />
+      </a>
+    </div>
+  );
+};
 
 const Hero = () => {
   const cardRef = useRef(null);
@@ -77,7 +116,7 @@ const Hero = () => {
   };
 
   return (
-    <div className={styles.heroWrapper}>
+    <div className={styles.heroWrapper} id="home">
       <motion.div
         ref={cardRef}
         className={styles.heroCard}
@@ -120,29 +159,33 @@ const Hero = () => {
             </motion.div>
 
             <motion.p variants={itemVariants} className={styles.description}>
-              Full Stack Developer specializing in modern web applications with <strong>Next.js, TypeScript,</strong> and <strong>React</strong>. I build scalable, performant solutions featuring real-time systems, AI integration, and seamless user experiences.
+              I’m a <strong>Full Stack Developer</strong> who builds scalable, high-performance web applications with a strong focus on <strong>real-time systems</strong>. Using modern tools like <strong>Next.js</strong> and the <strong>MERN stack</strong>, I create solutions that are fast, reliable, and built for real-world use.
             </motion.p>
 
             <motion.div variants={itemVariants} className={styles.actions}>
-              <button className={`${styles.btn} ${styles.btnPrimary}`}>
+              <a href="#contact" className={`${styles.btn} ${styles.btnPrimary}`}>
                 <Mail size={16} /> Contact
-              </button>
-              <button className={`${styles.btn} ${styles.btnSecondary}`}>
+              </a>
+              <a 
+                href="/Nabajyoti_Kalita_CV.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={`${styles.btn} ${styles.btnSecondary}`}
+              >
                 <FileText size={16} /> Resume
-              </button>
+              </a>
             </motion.div>
 
             <motion.div variants={itemVariants} className={styles.socials}>
-              <a href="#" className={styles.socialIcon}><Globe size={18} /></a>
-              <a href="#" className={styles.socialIcon}><Activity size={18} /></a>
-              <a href="#" className={styles.socialIcon}><Code size={18} /></a>
-              <a href="#" className={styles.socialIcon}><PenTool size={18} /></a>
+              <SocialIconWithTooltip href="https://github.com/NabajyotiK06" icon={FaGithub} label="GitHub" />
+              <SocialIconWithTooltip href="https://www.linkedin.com/in/nabajyoti-kalita" icon={FaLinkedin} label="LinkedIn" />
+              <SocialIconWithTooltip href="https://www.instagram.com/_naba.jyoti_/" icon={FaInstagram} label="Instagram" />
             </motion.div>
           </div>
 
           <motion.div variants={itemVariants} className={styles.profileSection}>
-            <div className={styles.profilePlaceholder}>
-              {/* Profile image placeholder left empty as requested */}
+            <div className={styles.profileImageContainer}>
+              <img src={profilePic} alt="Nabajyoti Kalita" className={styles.profileImage} />
             </div>
           </motion.div>
         </div>

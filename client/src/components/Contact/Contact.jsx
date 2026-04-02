@@ -19,7 +19,7 @@ const Contact = () => {
   }, []);
 
   return (
-    <section className={styles.contactSection}>
+    <section className={styles.contactSection} id="contact">
       <div className={styles.header}>
         <h2 className={styles.title}>
           Let's work on<br/>
@@ -134,7 +134,7 @@ const Contact = () => {
                   <div className={styles.lineNumber}>3</div><div className={styles.codeLineIndent}><span className={styles.property}>email:</span> <input type="text" className={styles.codeInput} placeholder='"you@email.com"' /> ,</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>4</div><div className={styles.codeLineIndent}><span className={styles.property}>message:</span> <textarea className={styles.codeTextarea} placeholder='"Let&apos;s build something cool..."'></textarea></div>
+                  <div className={styles.lineNumber}>4</div><div className={styles.codeLineIndent}><span className={styles.property}>message:</span><textarea className={styles.codeTextarea} placeholder='"Let&apos;s build something cool..."' defaultValue=""></textarea></div>
                 </div>
                 <div className={styles.lineWrapper}>
                   <div className={styles.lineNumber}>5</div><div className={styles.codeLine}>{'}'}</div>
@@ -154,7 +154,7 @@ const Contact = () => {
                   <div className={styles.lineNumber}>3</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>name:</span> <span className={styles.string}>"LinkedIn"</span>,</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>4</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>url:</span> <span className={styles.string}>"https://linkedin.com/in/dummy"</span>,</div>
+                  <div className={styles.lineNumber}>4</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>url:</span> <span className={styles.string}>"https://www.linkedin.com/in/nabajyoti-kalita"</span>,</div>
                 </div>
                 <div className={styles.lineWrapper}>
                   <div className={styles.lineNumber}>5</div><div className={styles.codeLineIndent}> {'}'},</div>
@@ -166,7 +166,7 @@ const Contact = () => {
                   <div className={styles.lineNumber}>7</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>name:</span> <span className={styles.string}>"GitHub"</span>,</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>8</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>url:</span> <span className={styles.string}>"https://github.com/dummy"</span>,</div>
+                  <div className={styles.lineNumber}>8</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>url:</span> <span className={styles.string}>"https://github.com/NabajyotiK06"</span>,</div>
                 </div>
                 <div className={styles.lineWrapper}>
                   <div className={styles.lineNumber}>9</div><div className={styles.codeLineIndent}> {'}'},</div>
@@ -178,7 +178,7 @@ const Contact = () => {
                   <div className={styles.lineNumber}>11</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>name:</span> <span className={styles.string}>"Instagram"</span>,</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>12</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>url:</span> <span className={styles.string}>"https://instagram.com/dummy"</span>,</div>
+                  <div className={styles.lineNumber}>12</div><div className={styles.codeLineDeepIndent}><span className={styles.property}>url:</span> <span className={styles.string}>"https://www.instagram.com/_naba.jyoti_/"</span>,</div>
                 </div>
                 <div className={styles.lineWrapper}>
                   <div className={styles.lineNumber}>13</div><div className={styles.codeLineIndent}> {'}'}</div>
@@ -189,9 +189,11 @@ const Contact = () => {
               </div>
             )}
             
-            <button className={styles.runBtn}>
-              <Play size={14} color="#10b981" fill="#10b981" /> Run Script
-            </button>
+            {activeFile === 'contact.tsx' && (
+              <button className={styles.runBtn}>
+                <Play size={14} color="#10b981" fill="#10b981" /> Run Script
+              </button>
+            )}
           </div>
         </div>
         </div>

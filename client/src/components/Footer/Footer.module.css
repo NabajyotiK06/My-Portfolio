@@ -1,7 +1,14 @@
 .footer {
   width: 100%;
-  padding: 64px 32px 40px;
-  border-top: none; /* Handled by SectionDivider */
+  padding: 64px 0 40px; /* Reduced side padding, as internal container handles it */
+  border-top: none;
+}
+
+.footerContent {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+  width: 100%;
 }
 
 .footerTop {
@@ -44,20 +51,21 @@
 .socialIcon {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  background: #1e1e1e;
-  border: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Refined border */
+  border-radius: 50%;
   color: var(--text-secondary);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
 }
 
 .socialIcon:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
   color: var(--text-primary);
-  transform: translateY(-2px);
 }
 
 .copyright {

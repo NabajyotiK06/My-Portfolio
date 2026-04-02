@@ -104,7 +104,7 @@ const TiltCard = ({ children, className }) => {
 
 const Projects = () => {
   return (
-    <section className={styles.projectsSection}>
+    <section className={styles.projectsSection} id="projects">
       <div className={styles.header}>
         <div className={styles.badge}>Work</div>
         <h2 className={styles.title}>Featured Projects</h2>

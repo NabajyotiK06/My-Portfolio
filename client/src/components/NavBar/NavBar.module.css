@@ -28,19 +28,31 @@
   padding: 10px 16px;
   border-radius: var(--border-radius-pill);
   color: var(--text-secondary);
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   font-weight: 500;
   font-size: 14px;
+  position: relative;
+  z-index: 1;
 }
 
 .navItem:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .navItem.active {
-  background: #e4e4e7;
   color: #000;
+}
+
+.navIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e4e4e7;
+  border-radius: var(--border-radius-pill);
+  z-index: -1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .divider {

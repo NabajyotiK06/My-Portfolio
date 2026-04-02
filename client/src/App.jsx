@@ -46,9 +46,9 @@ function App() {
           <Projects />
           <SectionDivider />
           <Contact />
-          <SectionDivider />
-          <Footer />
         </div>
+        <SectionDivider fullWidth={true} />
+        <Footer />
       </main>
     </div>
   );
