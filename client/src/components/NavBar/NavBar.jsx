@@ -1,16 +1,22 @@
 import React from 'react';
 import { Home, Folder, Mail, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
   const [activeId, setActiveId] = React.useState('home');
+  const location = useLocation();
 
   const navLinks = [
-    { id: 'home', icon: <Home size={18} />, label: 'Home', href: '#home' },
-    { id: 'projects', icon: <Folder size={18} />, label: 'Projects', href: '#projects' },
-    { id: 'contact', icon: <Mail size={18} />, label: 'Contact', href: '#contact' }
+    { id: 'home', icon: <Home size={18} />, label: 'Home', href: '/#home' },
+    { id: 'projects', icon: <Folder size={18} />, label: 'Projects', href: '/#projects' },
+    { id: 'contact', icon: <Mail size={18} />, label: 'Contact', href: '/#contact' }
   ];
+
+  if (location.pathname.startsWith('/project/')) {
+    return null;
+  }
 
   return (
     <motion.nav 

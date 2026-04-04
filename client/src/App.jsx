@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
-import Hero from './components/Hero/Hero';
-import TechMarquee from './components/TechMarquee/TechMarquee';
-import Skills from './components/Skills/Skills';
-import Experience from './components/Experience/Experience';
-import Projects from './components/Projects/Projects';
-import Contact from './components/Contact/Contact';
-import Footer from './components/Footer/Footer';
-import SectionDivider from './components/SectionDivider';
+import Home from './pages/Home';
+import ProjectDetails from './pages/ProjectDetails/ProjectDetails';
 import 'lenis/dist/lenis.css';
 import './index.css';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 function App() {
   useEffect(() => {
@@ -31,26 +34,16 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
-      <NavBar />
-      <main className="container">
-        <div className="content-grid-wrapper">
-          <Hero />
-          <SectionDivider />
-          <TechMarquee />
-          <SectionDivider />
-          <Skills />
-          <SectionDivider />
-          <Experience />
-          <SectionDivider />
-          <Projects />
-          <SectionDivider />
-          <Contact />
-        </div>
-        <SectionDivider fullWidth={true} />
-        <Footer />
-      </main>
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="app-container">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

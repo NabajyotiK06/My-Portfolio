@@ -2,55 +2,9 @@ import React, { useRef, useState } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { projectsData } from '../../data/projectsData';
 import styles from './Projects.module.css';
-
-const projectsData = [
-  {
-    id: 1,
-    title: 'CappyChat',
-    gradient: 'linear-gradient(135deg, #FF9A9E 0%, #FECFEF 99%, #FECFEF 100%)',
-    description: (
-      <>
-        Next-generation AI chat platform engineered for <strong>performance</strong> and <strong>scalability</strong>. • <strong>30+ Premium AI Models</strong> - GPT-5, Gemini 2.5,...
-      </>
-    ),
-    tech: ['Next.js 15', 'TypeScript', 'Zustand', 'Appwrite', '+3'],
-  },
-  {
-    id: 2,
-    title: 'Bashio',
-    gradient: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
-    description: (
-      <>
-        AI-powered CLI tool that converts <strong>plain English into shell commands</strong>. Stop Googling, start doing. • <strong>Natural Language to Shell</strong> - Describ...
-      </>
-    ),
-    tech: ['TypeScript', 'Node.js', 'Claude API', 'OpenAI API', '+3'],
-    hasCarousel: true,
-  },
-  {
-    id: 3,
-    title: 'ResuMate',
-    gradient: 'linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)',
-    description: (
-      <>
-        AI-powered resume builder designed to help job seekers craft <strong>professional, ATS-friendly resumes</strong> with <strong>intelligent optimization</strong>. • Step...
-      </>
-    ),
-    tech: ['React (Vite)', 'TypeScript', 'Tailwind CSS', 'Framer Motion', '+4'],
-  },
-  {
-    id: 4,
-    title: 'Quoridor Online',
-    gradient: 'linear-gradient(to right, #4facfe 0%, #00f2fe 100%)',
-    description: (
-      <>
-        A beautiful, animated implementation of the classic strategy board game <strong>Quoridor</strong>, built with Next.js and real-time multiplayer...
-      </>
-    ),
-    tech: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'Framer Motion', '+4'],
-  }
-];
 
 /* 3D Tilt Card wrapper */
 const TiltCard = ({ children, className }) => {
@@ -129,21 +83,25 @@ const Projects = () => {
               <TiltCard className={styles.projectCard}>
                 <div
                   className={styles.imagePlaceholder}
-                  style={{ background: project.gradient }}
+                  style={!project.image ? { background: project.gradient } : {}}
                 >
-                  {project.hasCarousel && (
+                  {project.image ? (
+                    <img src={project.image} alt={project.title} className={styles.projectImage} />
+                  ) : (
+                    <div className={styles.placeholderText}>Image Placeholder</div>
+                  )}
+                  {project.hasCarousel && !project.image && (
                     <>
                       <button className={`${styles.carouselBtn} ${styles.left}`}><ChevronLeft size={16} /></button>
                       <button className={`${styles.carouselBtn} ${styles.right}`}><ChevronRight size={16} /></button>
                     </>
                   )}
-                  <div className={styles.placeholderText}>Image Placeholder</div>
                 </div>
 
                 <div className={styles.cardContent}>
                   <div className={styles.cardHeader}>
                     <h3 className={styles.projectTitle}>{project.title}</h3>
-                    <a href="#" className={styles.githubBtn}>
+                    <a href={project.githubUrl || "#"} target="_blank" rel="noopener noreferrer" className={styles.githubBtn}>
                       <SiGithub size={18} />
                     </a>
                   </div>
@@ -159,8 +117,14 @@ const Projects = () => {
                   </div>
 
                   <div className={styles.actions}>
-                    <button className={`${styles.btn} ${styles.btnPrimary}`}>Details</button>
-                    <button className={`${styles.btn} ${styles.btnSecondary}`}>Live</button>
+                    <Link to={`/project/${project.id}`} className={`${styles.btn} ${styles.btnPrimary}`}>Details</Link>
+                    {project.liveUrl ? (
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnSecondary}`}>
+                        Live
+                      </a>
+                    ) : (
+                      <button className={`${styles.btn} ${styles.btnSecondary}`}>Live</button>
+                    )}
                   </div>
                 </div>
               </TiltCard>
