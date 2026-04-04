@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Files, Search, GitBranch, Blocks, Settings, Play, ChevronRight, ChevronDown, FileCode2, Terminal, MessageSquare, Send } from 'lucide-react';
+import { Files, Search, GitBranch, Blocks, Settings, Play, ChevronRight, ChevronDown, FileCode2, Terminal, MessageSquare, Send, CheckCircle2, XCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 import styles from './Contact.module.css';
 
@@ -10,6 +11,41 @@ const Contact = () => {
   const [view, setView] = useState('developer'); // 'standard' or 'developer'
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [activeFile, setActiveFile] = useState('contact.tsx');
+  
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    if (e) e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    try {
+      await emailjs.send(
+        'service_dnoaesn',
+        'template_sqcfg2u',
+        formData,
+        'sMHhx-zJi7AXrpiHS'
+      );
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -128,13 +164,13 @@ const Contact = () => {
                   <div className={styles.lineNumber}>1</div><div className={styles.codeLine}><span className={styles.keyword}>const</span> <span className={styles.function}>sendMessage</span> = <span className={styles.keyword}>async</span> (data) =&gt; {'{'}</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>2</div><div className={styles.codeLineIndent}><span className={styles.property}>name:</span> <input type="text" className={styles.codeInput} placeholder='"Your Name"' /> ,</div>
+                  <div className={styles.lineNumber}>2</div><div className={styles.codeLineIndent}><span className={styles.property}>name:</span> <input type="text" name="name" value={formData.name} onChange={handleChange} className={styles.codeInput} placeholder='"Your Name"' /> ,</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>3</div><div className={styles.codeLineIndent}><span className={styles.property}>email:</span> <input type="text" className={styles.codeInput} placeholder='"you@email.com"' /> ,</div>
+                  <div className={styles.lineNumber}>3</div><div className={styles.codeLineIndent}><span className={styles.property}>email:</span> <input type="text" name="email" value={formData.email} onChange={handleChange} className={styles.codeInput} placeholder='"you@email.com"' /> ,</div>
                 </div>
                 <div className={styles.lineWrapper}>
-                  <div className={styles.lineNumber}>4</div><div className={styles.codeLineIndent}><span className={styles.property}>message:</span><textarea className={styles.codeTextarea} placeholder='"Let&apos;s build something cool..."' defaultValue=""></textarea></div>
+                  <div className={styles.lineNumber}>4</div><div className={styles.codeLineIndent}><span className={styles.property}>message:</span><textarea name="message" value={formData.message} onChange={handleChange} className={styles.codeTextarea} placeholder='"Let&apos;s build something cool..."'></textarea></div>
                 </div>
                 <div className={styles.lineWrapper}>
                   <div className={styles.lineNumber}>5</div><div className={styles.codeLine}>{'}'}</div>
@@ -190,8 +226,21 @@ const Contact = () => {
             )}
             
             {activeFile === 'contact.tsx' && (
-              <button className={styles.runBtn}>
-                <Play size={14} color="#10b981" fill="#10b981" /> Run Script
+              <button 
+                className={styles.runBtn}
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+              >
+                {isSubmitting ? (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>Executing...</span>
+                ) : submitStatus === 'success' ? (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981' }}><CheckCircle2 size={14} /> Execution Successful</span>
+                ) : submitStatus === 'error' ? (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ef4444' }}><XCircle size={14} /> Execution Failed</span>
+                ) : (
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Play size={14} color="#10b981" fill="#10b981" /> Run Script</span>
+                )}
               </button>
             )}
           </div>
@@ -199,23 +248,31 @@ const Contact = () => {
         </div>
       ) : (
         <div className={styles.standardContainer}>
-          <form className={styles.standardForm}>
+          <form className={styles.standardForm} onSubmit={handleSubmit}>
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label>Name</label>
-                <input type="text" placeholder="John Doe" required />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" required />
               </div>
               <div className={styles.formGroup}>
                 <label>Email</label>
-                <input type="email" placeholder="john@example.com" required />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" required />
               </div>
             </div>
             <div className={styles.formGroup}>
               <label>Message</label>
-              <textarea placeholder="Tell me about your project..." rows={6} required></textarea>
+              <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell me about your project..." rows={6} required></textarea>
             </div>
-            <button type="submit" className={styles.submitBtn} onClick={(e) => e.preventDefault()}>
-              Send Message <Send size={16} />
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={isSubmitting}
+              style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+            >
+              {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Message Sent!' : submitStatus === 'error' ? 'Failed to Send' : 'Send Message'}
+              {!isSubmitting && submitStatus !== 'success' && submitStatus !== 'error' && <Send size={16} />}
+              {submitStatus === 'success' && <CheckCircle2 size={16} />}
+              {submitStatus === 'error' && <XCircle size={16} />}
             </button>
           </form>
         </div>
