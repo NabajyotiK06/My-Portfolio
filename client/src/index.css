@@ -89,6 +89,7 @@ button {
 
 .content-grid-wrapper {
   max-width: 900px;
+  width: calc(100% - 40px);
   margin: 0 auto;
   border-left: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
@@ -113,6 +114,10 @@ button {
   margin: 0 auto;
   position: relative;
   height: 100%;
+}
+
+.section-divider.full-width .divider-content {
+  width: calc(100% - 40px);
 }
 
 .crosshair {

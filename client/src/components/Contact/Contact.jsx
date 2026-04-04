@@ -14,7 +14,7 @@ const Contact = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTitleIndex((prev) => (prev + 1) % contactTitles.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 

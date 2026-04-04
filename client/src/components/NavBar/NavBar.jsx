@@ -36,6 +36,7 @@ const NavBar = () => {
             {item.icon}
             {item.label && activeId === item.id && (
               <motion.span
+                className={styles.navLabel}
                 initial={{ width: 0, opacity: 0 }}
                 animate={{ width: 'auto', opacity: 1 }}
                 transition={{ duration: 0.3 }}

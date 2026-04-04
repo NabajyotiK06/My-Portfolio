@@ -61,3 +61,12 @@
   background-color: var(--border-color);
   margin: 0 4px;
 }
+
+@media (max-width: 768px) {
+  .navLabel {
+    display: none !important;
+  }
+  .navItem {
+    padding: 10px 12px;
+  }
+}

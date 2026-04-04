@@ -451,5 +451,8 @@
     flex-direction: column;
     gap: 24px;
   }
+  .standardContainer {
+    padding: 24px;
+  }
 }
 
